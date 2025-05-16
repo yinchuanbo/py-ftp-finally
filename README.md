@@ -10,6 +10,7 @@ This is a simplified FTP file upload tool for retrieving changed files from loca
 - Automatic verification of file size and content after upload
 - Progress bar displaying upload status
 - Simplified batch script execution
+- **Web interface for easier operation** (NEW!)
 
 ## Requirements
 
@@ -42,6 +43,25 @@ Configuration files contain the following parameters:
 - `isFilter`: Whether to filter duplicate items
 - `*commit`: Specify commit IDs for a language (e.g., `twcommit=f9cd5ca5,990533b3`)
 
+### Web Interface Usage (Recommended)
+
+Use the provided web interface for the easiest operation:
+
+```bash
+# Start the web interface
+app.bat
+```
+
+Then open your browser and go to: http://localhost:5000
+
+The web interface allows you to:
+
+1. Select environment (test/production)
+2. Choose languages to process
+3. Specify commit IDs for each language
+4. View the list of changed files
+5. Upload files with a single click
+
 ### Command Line Usage
 
 ```bash
@@ -60,7 +80,7 @@ python ftp_manager.py upload pro
 
 ### Batch Script
 
-Use the provided batch script for easier operation:
+Use the provided batch script for menu-driven operation:
 
 ```bash
 # Run the menu-driven interface

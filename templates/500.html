@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block title %}服务器错误 - FTP 文件管理工具{%
+endblock %} {% block content %}
+<div class="row mt-5">
+  <div class="col-md-6 offset-md-3 text-center">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="display-1 text-danger"><i class="bi bi-bug"></i></h1>
+        <h2 class="mb-4">500 - 服务器内部错误</h2>
+        <p class="mb-4">抱歉，服务器遇到了一个问题。请稍后再试或联系管理员。</p>
+        <a href="{{ url_for('index') }}" class="btn btn-primary">
+          <i class="bi bi-house-door"></i> 返回首页
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

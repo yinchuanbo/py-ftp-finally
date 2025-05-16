@@ -1,0 +1,103 @@
+{% extends "base.html" %} {% block title %}FTP 文件管理工具 - 首页{% endblock %}
+{% block content %}
+<div class="row mt-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">
+          <i class="bi bi-cloud-upload"></i> FTP 文件上传工具
+        </h4>
+      </div>
+      <div class="card-body">
+        <form action="{{ url_for('get_files_route') }}" method="POST">
+          <div class="mb-4">
+            <h5 class="card-title">第一步：选择环境</h5>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="environment"
+                id="env_test"
+                value="test"
+                checked
+              />
+              <label class="form-check-label" for="env_test"> 测试环境 </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="environment"
+                id="env_pro"
+                value="pro"
+              />
+              <label class="form-check-label" for="env_pro"> 生产环境 </label>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h5 class="card-title">第二步：选择语言</h5>
+            <div class="row">
+              {% for code, domain in languages.items() %}
+              <div class="col-md-3 mb-2">
+                <div class="form-check">
+                  <input
+                    class="form-check-input language-check"
+                    type="checkbox"
+                    name="languages[]"
+                    id="lang_{{ code }}"
+                    value="{{ code }}"
+                  />
+                  <label class="form-check-label" for="lang_{{ code }}">
+                    {{ code }} ({{ domain }})
+                  </label>
+                </div>
+
+                <div class="commit-id-input mt-2 d-none" data-lang="{{ code }}">
+                  <label for="{{ code }}_commit" class="form-label"
+                    >提交 ID（逗号分隔）</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="{{ code }}_commit"
+                    name="{{ code }}_commit"
+                    placeholder="例如: f9cd5ca5,990533b3"
+                  />
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-list-check"></i> 获取文件列表
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // 显示/隐藏提交 ID 输入框
+    document.querySelectorAll(".language-check").forEach(function (checkbox) {
+      checkbox.addEventListener("change", function () {
+        const langCode = this.value;
+        const commitIdInput = document.querySelector(
+          `.commit-id-input[data-lang="${langCode}"]`
+        );
+
+        if (this.checked) {
+          commitIdInput.classList.remove("d-none");
+        } else {
+          commitIdInput.classList.add("d-none");
+        }
+      });
+    });
+  });
+</script>
+{% endblock %}

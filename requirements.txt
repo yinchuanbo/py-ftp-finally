@@ -1,3 +1,6 @@
 pysftp==0.2.9
 tqdm==4.66.1
-python-dotenv==1.0.0 
+python-dotenv==1.0.0
+flask==2.3.3
+werkzeug==2.3.7
+jinja2==3.1.2 
