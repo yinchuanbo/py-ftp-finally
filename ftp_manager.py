@@ -99,7 +99,18 @@ def get_all_commit_names(commit_list=None, lan_path=None, last=None):
     if commit_list:
         for commit in commit_list:
             try:
-                cmd = f'git -C {lan_path} log -1 {commit} --name-only --pretty=format:'
+                # 首先检查是否为合并提交
+                is_merge_cmd = f'git -C {lan_path} rev-list --merges -n 1 {commit}'
+                is_merge_stdout = subprocess.check_output(is_merge_cmd, shell=True).decode('utf-8').strip()
+                
+                if is_merge_stdout == commit:
+                    # 是合并提交，使用 -m 参数获取合并的文件变更
+                    print(f"检测到合并提交: {commit}，使用特殊处理...")
+                    cmd = f'git -C {lan_path} show --name-only --pretty=format: -m {commit}'
+                else:
+                    # 普通提交
+                    cmd = f'git -C {lan_path} log -1 {commit} --name-only --pretty=format:'
+                
                 stdout = subprocess.check_output(cmd, shell=True).decode('utf-8')
                 
                 for file_name in stdout.split('\n'):

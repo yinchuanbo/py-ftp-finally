@@ -2,9 +2,7 @@
 
 OUTPUT = {
   "en": [
-    "img/test.png"
-  ],
-  "tw": [
-    "img/test.png"
+    "js/image-to-video-ai.js",
+    "js/gen/@core.js"
   ]
 }
